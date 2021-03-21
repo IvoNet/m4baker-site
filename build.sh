@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
+
 mvn clean package
 if [ "$?" -ne 0 ]; then
     exit 1
 fi
+
+echo "Versioning..."
+python ./version.py
+
+./tag.sh
 
 docker_name=192.168.2.3:5555
 image=m4baker
