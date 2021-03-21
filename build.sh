@@ -9,10 +9,10 @@ docker_name=192.168.2.3:5555
 image=m4baker
 version=$(<./VERSION)
 
-deploy="false"
-#deploy="true"
-versioning=false
-#versioning=true
+#deploy="false"
+deploy="true"
+#versioning=false
+versioning=true
 
 OPTIONS="$OPTIONS --no-cache"
 #OPTIONS="$OPTIONS --force-rm"
