@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>M4Baker</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/w3.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .header {
+            background-color: #f1f1f1;
+            padding: 30px;
+            text-align: center;
+            font-size: 35px;
+        }
+
+        .column {
+            float: left;
+            padding: 10px;
+        }
+
+        .column.left {
+            width: 15%;
+        }
+
+        .column.right {
+            width: 25%;
+        }
+
+        .column.middle {
+            width: 60%;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .footer {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .column.left, .column.right, .column.middle {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h2>M4Baker</h2>
+    <h3>Bakes mp3 files to Audiobook (m4b) format.</h3>
+</div>
+
+<div class="row">
+    <div class="column left">
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="https://www.ivonet.nl" target="_blank">My Blog</a></li>
+            <li><a href="https://github.com/ivonet" target="_blank">My GitHub page</a></li>
+            <li><a href="https://www.ivowoltring.org" target="_blank">About</a></li>
+            <li><a href="http://ivo2u.nl/ZC" target="_blank">Buy me a Coffee</a></li>
+        </ul>
+    </div>
+    <div class="column middle">
+        <p>It is a freeware tool and therefore unsigned. You can read all about
+            <a href="http://ivo2u.nl/ZO" target="_blank">Opening "Unidentified Developer" Apps On Your Mac</a>.
+        </p>
+        <p><img src="/screen-main.png" alt="Main Screen" style="width: 100%;"/></p>
+        <p>The source code of this project and more information can be found on my <a href="http://ivo2u.nl/ZR">Github</a> page.</p>
+    </div>
+    <div class="column right">
+        <h2>Download</h2>
+        <ul th:each="download: ${files}" class="w3-ul">
+            <li><a th:href="@{/download/{id}(id=${download.dmg})}" th:text="${download.dmg}"></a> / <a
+                    th:href="@{/hash/{id}(id=${download.sha512})}" th:text="sha512"></a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="footer">
+    <p th:inline="text">M4Baker (c) [[${year}]] - IvoNet.nl</p>
+</div>
+
+</body>
+</html>

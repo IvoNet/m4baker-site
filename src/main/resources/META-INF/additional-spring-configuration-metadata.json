@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "download.directory",
+      "type": "java.lang.String",
+      "description": "Defines the download location folder"
+  }
+] }
