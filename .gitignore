@@ -37,3 +37,4 @@ node_modules
 .DS_Store
 target
 .mvn
+deploy.sh

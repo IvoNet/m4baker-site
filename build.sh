@@ -7,7 +7,7 @@ if [ "$?" -ne 0 ]; then
 fi
 
 echo "Versioning..."
-python ./version.py
+python3 ./version.py
 
 ./tag.sh
 
@@ -34,5 +34,10 @@ if [ "$versioning" == "true" ]; then
     docker tag $docker_name/${image}:latest $docker_name/${image}:${version}
     if [ "$?" -eq 0 ] && [ ${deploy} == "true" ]; then
         docker push $docker_name/${image}:${version}
+        if [ -f "./deploy.sh" ]; then
+          ./deploy.sh
+        fi
     fi
 fi
+
+
