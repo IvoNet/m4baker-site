@@ -26,7 +26,6 @@ public class DirWalker {
         return downloads;
     }
 
-
     private Set<String> listFiles(final String dir,
                                   final String extension) {
         return Stream.of(Objects.requireNonNull(new File(dir).listFiles()))
