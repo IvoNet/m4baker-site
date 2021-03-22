@@ -37,38 +37,29 @@ public class Download implements Comparable<Download> {
     }
 
     public String version() {
-        return normalizedVersion(this.dmg);
-    }
-
-    private String normalizedVersion(final String name) {
-        final Matcher matcher = versionPattern.matcher(name);
+        final Matcher matcher = versionPattern.matcher(this.dmg);
         if (!matcher.matches()) {
-            System.out.println("name = " + name);
             throw new IllegalArgumentException("Invalid version format");
         }
         return String.format("%s.%s.%s", matcher.group(1), matcher.group(2), matcher.group(3));
+    }
+
+    public String normalizedVersion() {
+        final Matcher matcher = versionPattern.matcher(this.dmg);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException("Invalid version format");
+        }
+        return String.format("%02d.%02d.%02d",
+                             Integer.valueOf(matcher.group(1)),
+                             Integer.valueOf(matcher.group(2)),
+                             Integer.valueOf(matcher.group(3)));
     }
 
     @Override
     public int compareTo(final Download that) {
         if (that == null)
             return 1;
-        final String[] thisParts = this.normalizedVersion(dmg)
-                                       .split("\\.");
-        final String[] thatParts = this.normalizedVersion(that.getDmg())
-                                       .split("\\.");
-        final int length = Math.max(thisParts.length, thatParts.length);
-        for (int i = 0; i < length; i++) {
-            final int thisPart = i < thisParts.length ?
-                  Integer.parseInt(thisParts[i]) : 0;
-            final int thatPart = i < thatParts.length ?
-                  Integer.parseInt(thatParts[i]) : 0;
-            if (thisPart < thatPart)
-                return -1;
-            if (thisPart > thatPart)
-                return 1;
-        }
-        return 0;
+        return this.normalizedVersion().compareTo(that.normalizedVersion());
     }
 
 }

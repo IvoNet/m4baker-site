@@ -22,6 +22,7 @@ public class Downloads {
                 downloads.add(new Download(dmg, sha512));
             }
         }
+        Collections.sort(downloads);
         Collections.reverse(downloads);
         return downloads;
     }
