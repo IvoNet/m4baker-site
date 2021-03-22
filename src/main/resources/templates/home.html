@@ -8,12 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-
 <div class="header">
     <h2>M4Baker</h2>
     <h3>Bakes mp3 files to Audiobook (m4b) format.</h3>
 </div>
-
 <div class="row">
     <div class="column left">
         <h2>Menu</h2>
@@ -21,30 +19,42 @@
             <li><a href="https://www.ivonet.nl" target="_blank">My Blog</a></li>
             <li><a href="https://github.com/ivonet" target="_blank">My GitHub page</a></li>
             <li><a href="https://www.ivowoltring.org" target="_blank">About</a></li>
-            <li><a href="http://ivo2u.nl/ZC" target="_blank">Buy me a Coffee</a></li>
         </ul>
-        <p>Contact:</p>
-        <p><a href="https://twitter.com/ivonet">Twitter</a></p>
+        <p>
+            <span class="w3-tag w3-large w3-padding w3-orange" style="transform:rotate(-10deg)">
+                <a href="http://ivo2u.nl/ZC" target="_blank">Buy me a Coffee</a>
+            </span>
+        </p>
+        <p>
+            <span class="w3-tag w3-large w3-padding w3-blue-gray" style="transform:rotate(-4deg)">
+                <a href="https://twitter.com/ivonet">Twitter</a>
+            </span>
+        </p>
     </div>
     <div class="column middle">
-        <p>It is a freeware tool and therefore unsigned. You can read all about
-            <a href="http://ivo2u.nl/ZO" target="_blank">Opening "Unidentified Developer" Apps On Your Mac</a>.
+        <p>It is a freeware / Donate ware.</p>
+        <p>You can read more about
+            <a href="http://ivo2u.nl/ZO" target="_blank" class="shadow">Opening "Unidentified Developer" Apps On Your Mac</a>
+            to learn more about the risks and problems. You don't have to be scared of Unsigned software, just be aware...
         </p>
         <p><img src="/screen-main.png" alt="Main Screen" style="width: 100%;"/></p>
-        <p>The source code of this project and more information can be found on my <a href="http://ivo2u.nl/ZR">Github</a> page.</p>
+        <p>
+            The source code of this project and more information can be found
+            <a href="http://ivo2u.nl/ZR" target="_blank">here</a>.
+        </p>
     </div>
     <div class="column right">
         <h2>Download</h2>
         <ul th:each="download: ${files}" class="w3-ul">
-            <li><a th:href="@{/download/{id}(id=${download.dmg})}" th:text="${download.dmg}"></a> / <a
-                    th:href="@{/hash/{id}(id=${download.sha512})}" th:text="sha512"></a></li>
+            <li>
+                <a th:href="@{/download/{id}(id=${download.dmg})}" th:text="${download.dmg}"></a> /
+                <a th:href="@{/hash/{id}(id=${download.sha512})}" th:text="sha512"></a>
+            </li>
         </ul>
     </div>
 </div>
-
 <div class="footer">
     <p th:inline="text">M4Baker (c) [[${year}]] - IvoNet.nl</p>
 </div>
-
 </body>
 </html>

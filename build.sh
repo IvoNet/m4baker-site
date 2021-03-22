@@ -9,6 +9,7 @@ fi
 echo "Versioning..."
 python3 ./version.py
 
+echo "Tagging version..."
 ./tag.sh
 
 docker_name=192.168.2.3:5555
@@ -23,6 +24,7 @@ versioning=true
 OPTIONS="$OPTIONS --no-cache"
 #OPTIONS="$OPTIONS --force-rm"
 
+echo "Building docker image..."
 docker build ${OPTIONS} -t $docker_name/${image}:latest .
 if [ "$?" -eq 0 ] && [ "${deploy}" == "true" ]; then
     docker push $docker_name/${image}:latest
