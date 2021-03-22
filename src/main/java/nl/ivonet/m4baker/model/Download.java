@@ -36,7 +36,11 @@ public class Download implements Comparable<Download> {
         return Objects.hash(dmg, sha512);
     }
 
-    private String normailizedVersion(final String name) {
+    public String version() {
+        return normalizedVersion(this.dmg);
+    }
+
+    private String normalizedVersion(final String name) {
         final Matcher matcher = versionPattern.matcher(name);
         if (!matcher.matches()) {
             System.out.println("name = " + name);
@@ -49,9 +53,9 @@ public class Download implements Comparable<Download> {
     public int compareTo(final Download that) {
         if (that == null)
             return 1;
-        final String[] thisParts = this.normailizedVersion(dmg)
+        final String[] thisParts = this.normalizedVersion(dmg)
                                        .split("\\.");
-        final String[] thatParts = this.normailizedVersion(that.getDmg())
+        final String[] thatParts = this.normalizedVersion(that.getDmg())
                                        .split("\\.");
         final int length = Math.max(thisParts.length, thatParts.length);
         for (int i = 0; i < length; i++) {

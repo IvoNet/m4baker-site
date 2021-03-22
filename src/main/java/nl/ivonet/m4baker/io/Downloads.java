@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
-public class DirWalker {
+public class Downloads {
 
     public List<Download> matchingDownloads(final String dir) {
 

@@ -1,6 +1,7 @@
 package nl.ivonet.m4baker.controller;
 
-import nl.ivonet.m4baker.io.DirWalker;
+import nl.ivonet.m4baker.io.Downloads;
+import nl.ivonet.m4baker.model.Download;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.Paths.get;
@@ -20,12 +22,12 @@ import static java.nio.file.Paths.get;
 @Controller
 public class IndexController {
 
-    private final DirWalker dirWalker;
+    private final Downloads downloads;
     private final String baseDir;
 
-    public IndexController(final DirWalker dirWalker,
+    public IndexController(final Downloads downloads,
                            @Value("${download.directory}") final String baseDir) {
-        this.dirWalker = dirWalker;
+        this.downloads = downloads;
         this.baseDir = endSlash(baseDir);
     }
 
@@ -36,8 +38,10 @@ public class IndexController {
 
     @GetMapping("/index.html")
     public String greeting(final Model model) {
-        model.addAttribute("year", LocalDateTime.now().getYear());
-        model.addAttribute("files", dirWalker.matchingDownloads(this.baseDir));
+        model.addAttribute("year",
+                           LocalDateTime.now()
+                                        .getYear());
+        model.addAttribute("files", downloads.matchingDownloads(this.baseDir));
         return "home";
     }
 
@@ -50,8 +54,19 @@ public class IndexController {
     }
 
     @GetMapping(value = "/hash/{filename:.*\\.sha512}", produces = MediaType.TEXT_PLAIN_VALUE)
-    public @ResponseBody String hash(@PathVariable("filename") final String filename) throws IOException {
+    public @ResponseBody
+    String hash(@PathVariable("filename") final String filename) throws IOException {
         return new String(readAllBytes(get(baseDir + filename)));
     }
 
+    @GetMapping(value = "/update/check", produces = MediaType.TEXT_PLAIN_VALUE)
+    public @ResponseBody
+    String versionCheck() {
+        final List<Download> dls = this.downloads.matchingDownloads(this.baseDir);
+        if (dls.isEmpty()) {
+            return "0.0.0";
+        }
+        return dls.get(0)
+                  .version();
+    }
 }
