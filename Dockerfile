@@ -1,4 +1,4 @@
-FROM openjdk:16-jdk-alpine3.13
+FROM openjdk:17-alpine3.14
 LABEL maintainer="Ivo Woltring - @ivonet"
 
 ENV profile prod

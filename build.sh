@@ -25,7 +25,7 @@ OPTIONS="$OPTIONS --no-cache"
 #OPTIONS="$OPTIONS --force-rm"
 
 echo "Building docker image..."
-docker build ${OPTIONS} -t $docker_name/${image}:latest .
+docker build ${OPTIONS} --platform=linux/arm64 -t $docker_name/${image}:latest .
 if [ "$?" -eq 0 ] && [ "${deploy}" == "true" ]; then
     docker push $docker_name/${image}:latest
 else
