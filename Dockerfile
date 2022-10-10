@@ -1,4 +1,4 @@
-FROM openjdk:17-alpine3.14
+FROM amazoncorretto:17.0.4-alpine3.16
 LABEL maintainer="Ivo Woltring - @ivonet"
 
 ENV profile prod
